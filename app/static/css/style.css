@@ -1,0 +1,214 @@
+body {
+    font-family: Arial;
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    background-color: darkorange;
+    color: white;
+    padding: 1px;
+    margin-bottom: 1px;
+    text-align: left;
+}
+
+header h1 {
+    padding-left: 20px;
+}
+
+footer {
+    background-color: darkorange;
+    color: white;
+    padding: 1px 0;
+    margin-top: 1px;
+    text-align: center;
+}
+
+main {
+    display: flex;
+}
+
+.left-menu-panel {
+    width: 20%;
+    margin-right: 1px;
+}
+
+.central-work-panel {
+    width: 60%;
+    margin-right: 1px;
+}
+
+.right-history-panel {
+    width: 20%;
+    margin-left: 1px;
+}
+
+/* style the tab */
+.tab {
+    overflow: hidden;
+    border-bottom: 1px solid lightgray;
+    background-color: white;
+}
+
+/* style the buttons that are used to open the tab content */
+.tab button {
+    background-color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 10px;
+    transition: 0.3s;
+}
+
+/* change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* create an active tablink class */
+.tab button.active {
+    background-color: darkorange;
+    color: white;
+}
+
+/* style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+    animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.vertex-part, .edge-part, .save-part, .open-part, .setting-part {
+    display: flex;
+    align-items: flex-start;
+}
+
+.vertex-label, .edge-label, .save-file-label, .open-file-label, .setting-label {
+    display: inline-block;
+    text-align: left;
+    vertical-align: top;
+    margin: 0;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    padding: 0;
+}
+
+.vertex-field, .edge-field, .save-file-name, .open-file-name, .setting-field {
+    display: inline-block;
+    margin: 0;
+    margin-bottom: 5px;
+    padding: 0;
+}
+
+input.physics-checkbox, input.color-checkbox {
+    margin-top: 3px;
+}
+
+
+input.color-pick {
+    width: 18px;
+    height: 18px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    outline: none;
+    margin-right: 10px;
+}
+
+input.color-pick::-webkit-color-swatch-wrapper {
+    border: none;
+    border-radius: 50%;
+}
+
+input.color-pick::-webkit-color-swatch {
+    padding: 0;
+}
+
+textarea.vertex-field, textarea.edge-field, textarea.save-file-name {
+    min-height: 17px;
+    resize: none;
+    margin-left: 5px;
+    width: 100%;
+}
+
+select.vertex-field, select.edge-field, select.open-file-name {
+    min-height: 18px;
+    width: 100%;
+    margin-left: 5px;
+}
+
+.simple-button {
+    width: 100%;
+    height: 35px;
+    padding: 10px, 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background-color: darkorange;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.simple-button:hover {
+    background-color: rgb(235, 129, 0);
+}
+
+.simple-button:active {
+    transform: translateY(1px);
+}
+
+.two-button {
+    display: inline-block;
+    width: 49%;
+}
+
+#graph {
+    width: 100%;
+    height: 600px;
+    border: 1px solid lightgray;
+}
+
+.history-panel, .menu-panel {
+    border: 1px solid lightgray;
+    height: 600px;
+}
+
+.history-content {
+    padding: 6px 12px;
+}
+
+.history-content > textarea {
+    width: 100%;
+    resize: none;
+    border: 1px solid lightgray;
+    box-sizing: border-box;
+    border-radius: 5px;
+    outline: none;
+}
+
+.history-content > h3 {
+    background-color: darkorange;
+    color: white;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 1px;
+    margin-bottom: 10px;
+}
+
+

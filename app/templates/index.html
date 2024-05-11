@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/g.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <title>Grapp</title>
+</head>
+<body>
+    <header>
+        <h1>Grapp</h1>
+    </header>
+
+    <main>
+        <div class="left-menu-panel">
+            <div class="menu-panel">
+                <!-- tab links -->
+                <div class="tab">
+                    <button class="tablinks active" onclick="openTab(event, 'Vertex')">Узлы</button>
+                    <button class="tablinks" onclick="openTab(event, 'Edges')">Рёбра</button>
+                    <!--<button class="tablinks" onclick="openTab(event, 'Alg')">Алг</button>-->
+                    <button class="tablinks" onclick="openTab(event, 'SaveOpen')">Граф</button>
+                    <button class="tablinks" onclick="openTab(event, 'Settings')">Настройки</button>
+                </div>
+
+                <!-- tab content -->
+                <div id="Vertex" class="tabcontent">
+                    <!-- vertex info/edit -->
+                    <div class="edit-vertex">
+                        <div class="vertex-part">
+                            <label for="node_id" class="vertex-label">Идентификатор:</label>
+                            <textarea name="node_id" id="node-id" class="vertex-field" cols="25" rows="1" readonly></textarea>
+                            <br>
+                        </div>
+
+                        <div class="vertex-part">
+                            <label for="node_label" class="vertex-label">Название:</label>
+                            <textarea name="node_label" id="node-label" class="vertex-field" cols="25" rows="1"></textarea>
+                            <br>
+                        </div>
+
+                        <div class="vertex-part">
+                            <label for="node_color" class="vertex-label">Цвет:</label>
+                            <!--
+                            <select name="node_color" id="node-color-select" class="vertex-field">
+                                <option value="">красный</option>
+                                <option value="">оранжевый</option>
+                                <option value="">жёлтый</option>
+                            </select>
+                            -->
+                            <!--<textarea name="node_color" id="node-color-text" class="vertex-field" cols="10" rows="1"></textarea>-->
+                            <input type="color" class="vertex-field color-pick" id="node-color-text" name="node_color">
+                            <br>
+                        </div>
+
+                        <div class="vertex-part">
+                            <label for="node_shape" class="vertex-label">Форма:</label>
+                            <select name="node_shape" id="node-shape" class="vertex-field">
+                                <option value="circle">круг</option>
+                                <option value="ellipse">элипс</option>
+                                <option value="diamond">ромб</option>
+                                <option value="box">прямоугольник</option>
+                                <option value="triangle">треугольник</option>
+                                <option value="hexagon">шестиуголник</option>
+                            </select>
+                        <br>
+                        </div>
+                        <!--
+                        <div class="vertex-part">
+                            <label for="node_size" class="vertex-label">Размер:</label>
+                            <textarea name="node_size" id="node-size" class="vertex-field" cols="30" rows="1"></textarea>
+                            <br>
+                        </div>
+
+                        <div class="vertex-part">
+                            <label for="node_content" class="vertex-label">Содержимое:</label>
+                            <textarea name="node_content" id="node-content" class="vertex-field" cols="25" rows="4"></textarea>
+                            <br>
+                        </div>
+                        -->
+                        <button class="simple-button" onclick="editNode()">Изменить</button>
+                    </div>
+                    <hr>
+
+                    <!-- vertex search -->
+                    <div class="find-vertex">
+                        <div class="vertex-part">
+                            <label for="node_id" class="vertex-label">Идентификатор:</label>
+                            <textarea name="node_id" id="node-id-find" class="vertex-field" cols="20" rows="1"></textarea>
+                            <br>
+                        </div>
+
+                        <button class="simple-button" onclick="findNode()">Поиск</button>
+                    </div>
+                </div>
+
+                <div id="Edges" class="tabcontent">
+                    <!-- edge info/edit -->
+                    <div class="edit-edge">
+                        <div class="edge-part">
+                            <label for="edge_id" class="edge-label">Идентификатор:</label>
+                            <textarea name="edge_id" id="edge-id" class="edge-field" cols="20" rows="1" readonly></textarea>
+                            <br>
+                        </div>
+
+                        <div class="edge-part">
+                            <label for="edge_from" class="edge-label">Из:</label>
+                            <textarea name="edge_from" id="edge-from" class="edge-field" cols="20" rows="1"></textarea>
+                            <br>
+                        </div>
+
+                        <div class="edge-part">
+                            <label for="edge_to" class="edge-label">В:</label>
+                            <textarea name="edge_to" id="edge-to" class="edge-field" cols="20" rows="1"></textarea>
+                            <br>
+                        </div>
+                        <!--
+                        <div class="edge-part">
+                            <label for="edge_arrows" class="edge-label">Направление:</label>
+                            <select name="edge_arrows" id="edge-arrows" class="edge-field">
+                                <option value="">нет</option>
+                                <option value="">в</option>
+                                <option value="">из</option>
+                            </select>
+                            <br>
+                        </div>
+
+                        <div class="edge-part">
+                            <label for="edge_label" class="edge-label">Название:</label>
+                            <textarea name="edge_label" id="edge-label" class="edge-field" cols="20" rows="1"></textarea>
+                            <br>
+                        </div>
+                        -->
+                        <div class="edge-part">
+                            <label for="edge_color" class="edge-label">Цвет:</label>
+                            <!--
+                            <select name="edge_color" id="edge-color-select" class="edge-field">
+                                <option value="">красный</option>
+                                <option value="">оранжевый</option>
+                                <option value="">жёлтый</option>
+                            </select>
+                            -->
+                            <!--<textarea name="edge_color" id="edge-color-text" class="edge-field" cols="10" rows="1"></textarea>-->
+                            <input type="color" class="vertex-field color-pick" id="edge-color-text" name="edge_color">
+                            <br>
+                        </div>
+                        <!--
+                        <div class="edge-part">
+                            <label for="edge_dashes" class="edge-label">Стиль:</label>
+                            <select name="edge_dashes" id="edge-dashes" class="edge-field">
+                                <option value="">нет</option>
+                                <option value="">широкий</option>
+                                <option value="">узкий</option>
+                            </select>
+                            <br>
+                        </div>
+
+                        <div class="edge-part">
+                            <label for="edge_size" class="edge-label">Ширина:</label>
+                            <textarea name="edge_size" id="edge-size" class="edge-field" cols="20" rows="1"></textarea>
+                            <br>
+                        </div>
+
+                        <div class="edge-part">
+                            <label for="edge_type" class="edge-label">Тип:</label>
+                            <select name="edge_type" id="edge-type" class="edge-field">
+                                <option value="">динамичный</option>
+                                <option value="">дискретный</option>
+                                <option value="">горизонтальный</option>
+                            </select>
+                            <br>
+                        </div>
+                        -->
+                        <button class="simple-button" onclick="editEdge()">Изменить</button>
+                    </div>
+                    <hr>
+
+                    <!-- edge search -->
+                    <div class="find-edge">
+                        <div class="edge-part">
+                            <label for="edge_id" class="edge-label">Идентификатор:</label>
+                            <textarea name="edge_id" id="edge-id-find" class="edge-field" cols="20" rows="1"></textarea>
+                            <br>
+                        </div>
+
+                        <button class="simple-button" onclick="findEdge()">Поиск</button>
+                    </div>
+                </div>
+
+                <div id="Alg" class="tabcontent">
+                    <h3>Алг</h3>
+                </div>
+
+                <div id="SaveOpen" class="tabcontent">
+                    <div class="save-open-menu">
+                        <div class="open-part">
+                            <label for="open_file_name" class="open-file-label">Имя:</label>
+                            <select name="open_file_name" id="open-file-id" class="open-file-name">
+                            </select>
+                            <script>
+                                // saved graph
+                                fillFilesList()
+                            </script>
+                        </div>
+                        <button class="simple-button" onclick="openGraph()">Открыть</button>
+                        <button class="simple-button" onclick="deleteGraph()">Удалить</button>
+                        <hr>
+
+                        <div class="save-part">
+                            <label for="save_file_name" class="save-file-label">Имя:</label>
+                            <textarea name="save_file_name" id="save-file-id" class="save-file-name" cols="20" rows="1"></textarea>
+                        </div>
+                        <button class="simple-button" onclick="saveGraph()">Сохранить</button>
+                        <hr>
+
+                        <button class="simple-button" onclick="cleanGraph()">Очистить</button>
+                    </div>
+                </div>
+
+                <div id="Settings" class="tabcontent">
+                    <div>
+                        <div class="setting-part">
+                            <label for="physicsToggle" class="setting-label">Вкл/Выкл физика</label>
+                            <input type="checkbox" class="setting-field physics-checkbox" id="physicsToggle" onchange="togglePhysics()">
+                            <br>
+                        </div>
+                        <br>
+
+                        <div class="setting-part">
+                            <label for="default_node_color" class="setting-label">Цвет новых узлов</label>
+                            <input type="color" class="setting-field color-pick" id="default-node-color" name="default_node_color">
+                            <label for="randomNodeColor" class="setting-label">случайно</label>
+                            <input type="checkbox" class="setting-field color-checkbox" id="randomNodeColor" onchange="randomNodeColor()">
+                            <br>
+                        </div>
+
+                        <div class="setting-part">
+                            <label for="default_edge_color" class="setting-label">Цвет новых рёбер</label>
+                            <input type="color" class="setting-field color-pick" id="default-edge-color" name="default_edge_color">
+                            <label for="randomEdgeColor" class="setting-label">случайно</label>
+                            <input type="checkbox" class="setting-field color-checkbox" id="randomEdgeColor" onchange="randomEdgeColor()">
+                        </div>
+                    </div>
+                    <script>
+                        // default menu
+                        document.getElementById("randomNodeColor").checked = true;
+                        document.getElementById("randomEdgeColor").checked = true;
+                    </script>
+                </div>
+
+                <script>
+                    // default tab
+                    document.getElementById("Vertex").style.display = "block";
+                </script>
+            </div>
+        </div>
+
+        <div class="central-work-panel">
+            <div id="graph"></div>
+            <script src="{{ url_for('static', filename='js/graph.js') }}"></script>
+        </div>
+
+        <div class="right-history-panel">
+            <div class="history-panel">
+                <div class="history-content">
+                    <h3>История</h3>
+                    <textarea name="history_list" id="history-list" cols="30" rows="30" readonly></textarea>
+                    <hr>
+                    <!--
+                    <button class="simple-button two-button">Назад</button>
+                    <button class="simple-button two-button">Вперёд</button>
+                    -->
+                    <button class="simple-button" onclick="cleanHistory()">Очистить</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Grapp</p>
+    </footer>
+</body>
+</html>
