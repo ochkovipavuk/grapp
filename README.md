@@ -22,7 +22,6 @@ run.py 127.0.0.1 8080 True
 Приложение запущено.
 
 ---
-# grapp
 ### Grapp is a web application for visualizing and working with graphs.
 
 The application consists of a server and a client part. The server part is written in python flask, the sqlite database, the client consists of standard html, css, js.
