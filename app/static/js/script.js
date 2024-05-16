@@ -3,6 +3,11 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// open documentation
+function openDoc() {
+    window.open("/documentation", "_blank");
+}
+
 // tab works
 function openTab(evt, tabName) {
     // declare all variables
@@ -188,6 +193,15 @@ function editEdge() {
     var color = document.getElementById('edge-color-text').value;
 
     var edge = edges.get(id);
+
+    if (to === "") {
+        to = Math.max(...nodes.getIds());
+        document.getElementById('edge-to').value = to;
+    }
+    if (from === "") {
+        from = Math.max(...nodes.getIds());
+        document.getElementById('edge-from').value = from;
+    }
 
     edge.to = to;
     edge.from = from;

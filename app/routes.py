@@ -10,6 +10,10 @@ def index():
     db.create_all()
     return render_template('index.html')
 
+@app.route('/documentation')
+def documentation():
+    return render_template('documentation.html')
+
 @app.route('/save_graph', methods=['POST'])
 def save_graph():
     data = request.get_json()
@@ -27,10 +31,8 @@ def save_graph():
 @app.route('/open_graph/<string:name>')
 def open_graph(name):
     graph = Graph.query.filter_by(name=name).first()
-    print("govno ", graph)
     if not graph:
         return jsonify ({'message': 'graph not found'})
-    print(graph.name, graph.data)
     return jsonify ({'name': graph.name, 
                      'data': graph.data})
 
